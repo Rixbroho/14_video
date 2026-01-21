@@ -7,14 +7,18 @@ const port=3000;
 
 app.use(cookieParser());
 
-
 app.get('/',(req,res)=>{
-    let token=jwt.sign({email:"try@gmail.com"},"secret");
-    console.log(token)
+    let token=jwt.sign({email:"ok@gmail.com"},"secret");
+    // console.log(token)
     res.cookie('token',token);
     res.send("hello world")
 });
 
+app.get('/app',(req,res)=>{
+    let data=jwt.verify(req.cookies.token,'secret')
+    console.log(data);
+    res.send("done")
+})
 
 app.listen(port,()=>{
     console.log(`backend is working in ${port} port`)
